@@ -62,3 +62,14 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }
+
+task buildClientLib {
+    doLast {
+        exec {
+            workingDir '../ALVR/'
+            commandLine 'cargo', 'xtask', 'build-client-lib', '--release'
+        }
+    }
+}
+
+preBuild.dependsOn(buildClientLib)
