@@ -228,11 +228,13 @@ uint64_t X_CLICK;
 uint64_t X_TOUCH;
 uint64_t Y_CLICK;
 uint64_t Y_TOUCH;
+uint64_t LEFT_TRIGGER_CLICK;
 uint64_t LEFT_TRIGGER_VALUE;
 uint64_t LEFT_TRIGGER_TOUCH;
 uint64_t LEFT_THUMBSTICK_X;
 uint64_t LEFT_THUMBSTICK_Y;
 uint64_t LEFT_THUMBSTICK_TOUCH;
+uint64_t RIGHT_TRIGGER_CLICK;
 uint64_t RIGHT_TRIGGER_VALUE;
 uint64_t RIGHT_TRIGGER_TOUCH;
 uint64_t RIGHT_THUMBSTICK_X;
@@ -360,7 +362,9 @@ void updateButtons() {
                     updateBinary(Y_CLICK, inputState.Buttons & ovrButton_Back);
                     updateBinary(Y_TOUCH, inputState.Buttons & ovrButton_Back);
 
-                    updateBinary(LEFT_TRIGGER_VALUE, inputState.Buttons & ovrButton_A);
+                    updateBinary(LEFT_TRIGGER_CLICK, inputState.Buttons & ovrButton_A);
+                    updateScalar(LEFT_TRIGGER_VALUE,
+                                 (inputState.Buttons & ovrButton_A) ? 1.0f : 0.0f);
                     updateBinary(LEFT_TRIGGER_TOUCH, inputState.Buttons & ovrButton_A);
                 } else {
                     updateBinary(A_CLICK, inputState.Buttons & ovrButton_Enter);
@@ -376,7 +380,9 @@ void updateButtons() {
                     updateBinary(B_CLICK, inputState.Buttons & ovrButton_Back);
                     updateBinary(B_TOUCH, inputState.Buttons & ovrButton_Back);
 
-                    updateBinary(RIGHT_TRIGGER_VALUE, inputState.Buttons & ovrButton_A);
+                    updateBinary(RIGHT_TRIGGER_CLICK, inputState.Buttons & ovrButton_A);
+                    updateScalar(RIGHT_TRIGGER_VALUE,
+                                 (inputState.Buttons & ovrButton_A) ? 1.0f : 0.0f);
                     updateBinary(RIGHT_TRIGGER_TOUCH, inputState.Buttons & ovrButton_A);
                 }
             }
@@ -628,11 +634,13 @@ Java_com_polygraphene_alvr_OvrActivity_initializeNative(JNIEnv *env, jobject con
     X_TOUCH = alvr_path_string_to_hash("/user/hand/left/input/x/touch");
     Y_CLICK = alvr_path_string_to_hash("/user/hand/left/input/y/click");
     Y_TOUCH = alvr_path_string_to_hash("/user/hand/left/input/y/click");
+    LEFT_TRIGGER_CLICK = alvr_path_string_to_hash("/user/hand/left/input/trigger/click");
     LEFT_TRIGGER_VALUE = alvr_path_string_to_hash("/user/hand/left/input/trigger/value");
     LEFT_TRIGGER_TOUCH = alvr_path_string_to_hash("/user/hand/left/input/trigger/touch");
     LEFT_THUMBSTICK_X = alvr_path_string_to_hash("/user/hand/left/input/thumbstick/x");
     LEFT_THUMBSTICK_Y = alvr_path_string_to_hash("/user/hand/left/input/thumbstick/y");
     LEFT_THUMBSTICK_TOUCH = alvr_path_string_to_hash("/user/hand/left/input/thumbstick/touch");
+    RIGHT_TRIGGER_CLICK = alvr_path_string_to_hash("/user/hand/right/input/trigger/click");
     RIGHT_TRIGGER_VALUE = alvr_path_string_to_hash("/user/hand/right/input/trigger/value");
     RIGHT_TRIGGER_TOUCH = alvr_path_string_to_hash("/user/hand/right/input/trigger/touch");
     RIGHT_THUMBSTICK_X = alvr_path_string_to_hash("/user/hand/right/input/thumbstick/x");
@@ -847,7 +855,8 @@ Java_com_polygraphene_alvr_OvrActivity_onStreamStartNative(JNIEnv *_env,
     getPlayspaceArea(&areaWidth, &areaHeight);
     alvr_send_playspace(areaWidth, areaHeight);
 
-    alvr_start_stream(decoder, codec, realTimeDecoder, textureHandles, textureHandlesBuffer[0].size());
+    alvr_start_stream(decoder, codec, realTimeDecoder, textureHandles,
+                      textureHandlesBuffer[0].size());
 }
 
 extern "C" JNIEXPORT jboolean JNICALL
