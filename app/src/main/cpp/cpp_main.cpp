@@ -471,7 +471,7 @@ AlvrEyeInput trackingToEyeInput(ovrTracking2 *tracking, int eye) {
     auto q = tracking->HeadPose.Pose.Orientation;
 
     auto v = ovrMatrix4f_Inverse(&tracking->Eye[eye].ViewMatrix);
-    
+
     EyeFov fov;
     if (eye == 0) {
         fov = getFov().first;
