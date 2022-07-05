@@ -546,6 +546,7 @@ void trackingThread() {
                 vrapi_GetPredictedTracking2(g_ctx.ovrContext, (double) targetTimestampNs / 1e9);
         headMotion.device_id = HEAD_PATH;
         memcpy(&headMotion.orientation, &headTracking.HeadPose.Pose.Orientation, 4 * 4);
+        memcpy(headMotion.position, &headTracking.HeadPose.Pose.Position, 4 * 3);
         motionVec.push_back(headMotion);
 
         {
