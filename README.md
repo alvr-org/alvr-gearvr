@@ -1,4 +1,4 @@
-# ALVR - Air Light VR
+# ALVR for GearVR
 
 This repository hosts the platform-specific code for the GearVR client. Uses the Oculus Mobile SDK 1.26.0.
 
