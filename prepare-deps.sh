@@ -5,5 +5,5 @@ rm download.zip
 mv ALVR-master ALVR
 
 pushd ALVR
-cargo xtask prepare-deps
+cargo xtask prepare-deps $@
 popd
