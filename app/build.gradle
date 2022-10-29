@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    buildToolsVersion = "32.0.0"
-    compileSdkVersion 31
-    ndkVersion "22.1.7171670"
+    namespace 'com.polygraphene.alvr'
+    buildToolsVersion = "33.0.0"
+    compileSdkVersion 33
+    ndkVersion "25.1.8937393"
     defaultConfig {
-        applicationId "alvr.client.go"
-        minSdkVersion 21
-        targetSdkVersion 31
+        applicationId "alvr.client.gearvr"
+        minSdkVersion 26
+        targetSdkVersion 33
         versionCode 84
-        versionName "19.0.0-dev00"
+        versionName "19.0.0"
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++17 -fexceptions -frtti"
@@ -59,7 +60,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.so'])
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }
 
